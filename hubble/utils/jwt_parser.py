@@ -1,7 +1,7 @@
 import base64
 import json
 
-from jose import jwt
+import jwt
 
 from .jwks import JSONWebKeySet
 
@@ -44,7 +44,7 @@ def validate_jwt(token: str, aud: str = None):
     try:
         decoded = jwt.decode(
             token,
-            json.dumps(keys[0]),
+            keys[0],
             algorithms=supported_algorithms,
             audience=aud,
             options={

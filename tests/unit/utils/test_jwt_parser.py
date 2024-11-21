@@ -6,9 +6,9 @@ from hubble.utils.jwt_parser import (
     validate_back_channel_logout_jwt,
     validate_jwt,
 )
-from jose import jwt
+import jwt
 
-PRIVATE_KEY = {
+PRIVATE_KEY = jwt.PyJWK({
     "kty": "EC",
     "d": "iLw805NZwMRKwcXOmtDPGlB158S_PUkRVnlbmEMmO2E",
     "use": "sig",
@@ -17,9 +17,9 @@ PRIVATE_KEY = {
     "x": "KmpjXcs-ZoVBTqhzI5rlTqq0-BASZUOUINkYCcZG9K8",
     "y": "z-jGVJXhv1pfh_ic8wWTE30p_2JT0aTshfxx_TtiMm0",
     "alg": "ES256",
-}
+})
 
-PUBLIC_KEY = {
+PUBLIC_KEY = jwt.PyJWK({
     "kty": "EC",
     "use": "sig",
     "crv": "P-256",
@@ -27,9 +27,9 @@ PUBLIC_KEY = {
     "x": "KmpjXcs-ZoVBTqhzI5rlTqq0-BASZUOUINkYCcZG9K8",
     "y": "z-jGVJXhv1pfh_ic8wWTE30p_2JT0aTshfxx_TtiMm0",
     "alg": "ES256",
-}
+})
 
-OTHER_PUBLIC_KEY = {
+OTHER_PUBLIC_KEY = jwt.PyJWK({
     "kty": "EC",
     "use": "sig",
     "crv": "P-256",
@@ -37,9 +37,9 @@ OTHER_PUBLIC_KEY = {
     "x": "_KCLiE8ul1eTVWdObu31mF26a3BzIsP2G6b2wPYlHFA",
     "y": "N6e_WdVrjjxVPZScBVLdluPk91pqoDRyS1BZ0ImDzPI",
     "alg": "ES256",
-}
+})
 
-HEADERS = {'kid': PUBLIC_KEY['kid']}
+HEADERS = {'kid': PUBLIC_KEY.key_id}
 
 PAYLOAD = {
     'iss': 'http://localhost:3000',

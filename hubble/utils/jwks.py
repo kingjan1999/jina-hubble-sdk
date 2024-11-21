@@ -1,4 +1,5 @@
 import requests
+from jwt import PyJWK
 
 from .api_utils import get_domain_url, get_json_from_response
 from .config import config
@@ -12,7 +13,7 @@ class JSONWebKeySet:
         if len(matching_jwks) > 0:
             return matching_jwks
         hubble_jwks = JSONWebKeySet.get_keys_from_hubble()
-        matching_jwks = [key for key in hubble_jwks if key['kid'] == kid]
+        matching_jwks = [PyJWK(key) for key in hubble_jwks if key['kid'] == kid]
         return matching_jwks
 
     @staticmethod

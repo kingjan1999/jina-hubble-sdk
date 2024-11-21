@@ -1,7 +1,7 @@
 import tempfile
 
 import pytest
-from jose import jwt
+import jwt
 
 
 @pytest.fixture(autouse=True)
@@ -12,7 +12,7 @@ def tmpfile(tmpdir):
 
 @pytest.fixture()
 def generate_jwt(mocker):
-    private_key = {
+    private_key = jwt.PyJWK({
         "kty": "EC",
         "d": "iLw805NZwMRKwcXOmtDPGlB158S_PUkRVnlbmEMmO2E",
         "use": "sig",
@@ -21,9 +21,9 @@ def generate_jwt(mocker):
         "x": "KmpjXcs-ZoVBTqhzI5rlTqq0-BASZUOUINkYCcZG9K8",
         "y": "z-jGVJXhv1pfh_ic8wWTE30p_2JT0aTshfxx_TtiMm0",
         "alg": "ES256",
-    }
+    })
 
-    public_key = {
+    public_key = jwt.PyJWK({
         "kty": "EC",
         "use": "sig",
         "crv": "P-256",
@@ -31,9 +31,9 @@ def generate_jwt(mocker):
         "x": "KmpjXcs-ZoVBTqhzI5rlTqq0-BASZUOUINkYCcZG9K8",
         "y": "z-jGVJXhv1pfh_ic8wWTE30p_2JT0aTshfxx_TtiMm0",
         "alg": "ES256",
-    }
+    })
 
-    headers = {'kid': public_key['kid']}
+    headers = {'kid': public_key.key_id}
 
     mocker.patch('hubble.utils.jwks.JSONWebKeySet.get_keys', return_value=[public_key])
 
