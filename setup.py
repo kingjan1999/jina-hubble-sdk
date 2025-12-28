@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 # package metadata
 _description = 'SDK for Hubble API at Jina AI.'
-_setup_requires = ['setuptools>=18.0<=81', 'wheel']
+_setup_requires = ['setuptools>=18.0,<=81', 'wheel']
 _python_requires = '>=3.9.0'
 _author = 'Jina AI'
 _email = 'hello@jina.ai'
