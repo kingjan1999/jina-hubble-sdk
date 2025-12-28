@@ -3,6 +3,7 @@ aiohttp
 rich
 importlib-metadata
 filelock
+packaging
 pathspec
 docker
 pyyaml

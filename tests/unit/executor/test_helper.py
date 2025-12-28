@@ -138,7 +138,7 @@ def test_install_requirements(monkeypatch):
     [
         ('docarray', 'docarray', [], []),
         ('jina[dev]', 'jina', [], ['dev']),
-        ('clip-server==0.3.0', 'clip-server', [('==', '0.3.0')], []),
+        ('clip-server==0.3.0', 'clip-server', ['0.3.0'], []),
         ('git+https://github.com/jina-ai/jina.git', 'jina', [], []),
         ('git+https://github.com/jina-ai/jina.git@v0.1', 'jina', [], []),
         (
@@ -155,9 +155,10 @@ def test_parse_requirements(requirement, name, specs, extras):
 
     req_spec = parse_requirement(requirement)
 
-    assert req_spec.project_name == name
+    assert req_spec.name == name
     assert list(req_spec.extras) == extras
-    assert req_spec.specs == specs
+    for spec in specs:
+        assert spec in req_spec.specifier
 
 
 def test_is_requirement_installed(tmpfile):
